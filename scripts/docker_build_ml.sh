@@ -63,7 +63,13 @@ build_pytorch()
 #			  "v0.6.0" \
 #			  "pillow" 
 
-
+# PyTorch v1.6.0
+build_pytorch "https://nvidia.box.com/shared/static/9eptse6jyly1ggt9axbja2yrmj6pbarc.whl" \
+			  "torch-1.6.0-cp36-cp36m-linux_aarch64.whl" \
+			  "l4t-pytorch:r32.4.3-pth1.6-py3" \
+			  "v0.7.0" \
+			  "pillow" \
+			  "v0.6.0"
 
 #			  
 # TensorFlow (for JetPack 4.4)
@@ -87,11 +93,20 @@ build_tensorflow()
 	echo "done building TensorFlow $tensorflow_whl, $tensorflow_tag"
 }
 
+# TensorFlow 1.15.2
+build_tensorflow "https://nvidia.box.com/shared/static/8a3q3dz6juk0xg2e2kwwng9teosyohad.whl" \
+			  "tensorflow-1.15.2+nv20.6-cp36-cp36m-linux_aarch64.whl" \
+			  "l4t-tensorflow:r32.4.3-tf1.15-py3"
+
+# TensorFlow 2.2.0
+build_tensorflow "https://nvidia.box.com/shared/static/l5lzgqh6cm5kw1b1nzdzuwcpf70xndak.whl" \
+			  "tensorflow-2.2.0+nv20.6-cp36-cp36m-linux_aarch64.whl" \
+			  "l4t-tensorflow:r32.4.3-tf2.2-py3"
 
 #
-# Machine Learning + jetson-inference
+# Machine Learning
 #
-sh ./scripts/docker_build.sh jetson-inference:latest Dockerfile.ml \
+sh ./scripts/docker_build.sh l4t-ml:r32.4.3-py3 Dockerfile.ml \
 		--build-arg BASE_IMAGE=$BASE_IMAGE \
 		--build-arg PYTORCH_IMAGE=l4t-pytorch:r32.4.3-pth1.6-py3 \
 		--build-arg TENSORFLOW_IMAGE=l4t-tensorflow:r32.4.3-tf1.15-py3
