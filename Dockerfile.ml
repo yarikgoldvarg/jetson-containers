@@ -130,6 +130,24 @@ RUN git clone https://github.com/NVlabs/cub opt/cub && \
 
 
 #
+# jetson inference
+WORKDIR /
+RUN mkdir install
+WORKDIR /install
+RUN git clone --recursive https://github.com/yarikgoldvarg/jetson-inference.git
+RUN chmod -R +x /install/jetson-inference
+RUN mkdir build
+WORKDIR /install/jetson-inference/build
+RUN cmake -DBUILD_SHARED_LIBS=ON ../
+RUN make -j$(nproc)
+RUN sudo make install
+RUN sudo ldconfig
+WORKDIR /
+
+#
+
+
+#
 # JupyterLab
 #
 RUN pip3 install jupyter jupyterlab --verbose
